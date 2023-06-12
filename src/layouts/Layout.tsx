@@ -22,24 +22,11 @@ export function Layout(props: { title: string; children: React.ReactNode }) {
           rel="stylesheet"
         />
       </Head>
-      <body className="bg-white dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-900" style={{ minHeight: "100vh" }}>
         <AppHeader />
-        {props.children}
+        <main className="mb-40 space-y-40">{props.children}</main>
         <AppFooter />
-      </body>
+      </div>
     </>
   );
-}
-
-{
-  /* <style>
-	html {
-		font-family: Urbanist, sans-serif;
-		scroll-behavior: smooth;
-	}
-
-	body {
-		margin: 0;
-	}
-</style> */
 }
