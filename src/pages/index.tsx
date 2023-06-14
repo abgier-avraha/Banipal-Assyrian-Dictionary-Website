@@ -4,7 +4,7 @@ import { HeroSection } from "~/components/hero-section";
 import { api } from "~/utils/api";
 
 const Index: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const dictResults = api.dictionary.search.useQuery({ query: "access" });
 
   return (
     <>

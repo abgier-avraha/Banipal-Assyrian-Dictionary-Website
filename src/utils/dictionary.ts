@@ -1,34 +1,50 @@
+import Fuse from "fuse.js";
+import { z } from "zod";
+import { CsvParser } from "~/utils/csv-parser";
+
 interface IDictionary {
   load: (csv: string) => void;
   // Search and english word and return an array of syriac words
-  fuzzySearch: (query: string) => IDictionaryEntry[];
+  fuzzySearch: (query: string) => EntrySchemaType[];
 }
 
-interface IDictionaryEntry {
-  english: string;
-  syriac: string[];
-}
+const entrySchema = z.object({
+  english: z.string(),
+  syriac: z.string(),
+  grammar: z.string().optional(),
+});
+
+type EntrySchemaType = z.infer<typeof entrySchema>;
 
 export class Dictionary implements IDictionary {
+  private fuse = new Fuse<EntrySchemaType>([]);
   private isLoaded = false;
 
   load(csv: string): void {
-    // TODO:
+    // Load csv
+    const parser = new CsvParser();
 
-    // Load indexing through Fuse
-    // const fuse = new Fuse(dictionaryCsv, {
-    //   keys: ["english", "syriac"],
-    // });
+    const parsed = parser.parse(csv, entrySchema);
+
+    // Load dictionary entries into Fuse engine
+    this.fuse = new Fuse(parsed, {
+      includeScore: true,
+      keys: ["english", "syriac", "grammar"],
+    });
 
     this.isLoaded = true;
     return;
   }
 
-  fuzzySearch(query: string): IDictionaryEntry[] {
+  fuzzySearch(query: string): EntrySchemaType[] {
     if (!this.isLoaded) {
       throw new Error("Dictionary has not yet been loaded.");
     }
-    // TODO:
-    return [];
+
+    const res = this.fuse.search(query, {
+      limit: 5,
+    });
+
+    return res.map((i) => i.item);
   }
 }
