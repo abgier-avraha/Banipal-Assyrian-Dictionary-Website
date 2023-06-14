@@ -1,15 +1,13 @@
-import Head from "next/head";
+import { Head, Html, Main, NextScript } from "next/document";
 import Link from "next/link";
-import React from "react";
 import { AppFooter } from "~/components/app-footer";
 import { AppHeader } from "~/components/app-header";
 
-export function Layout(props: { title: string; children: React.ReactNode }) {
+export default function Document() {
   return (
-    <>
+    <Html>
       <Head>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
         <meta
           name="description"
           content="Template built with tailwindcss using Tailus blocks v2"
@@ -20,11 +18,17 @@ export function Layout(props: { title: string; children: React.ReactNode }) {
           rel="stylesheet"
         />
       </Head>
-      <div className="bg-white dark:bg-gray-900" style={{ minHeight: "100vh" }}>
+      <body
+        className="bg-white dark:bg-gray-900"
+        style={{ minHeight: "100vh" }}
+      >
         <AppHeader />
-        <main className="mb-40 space-y-40">{props.children}</main>
+        <div className="mb-40 space-y-40">
+          <Main />
+        </div>
+        <NextScript />
         <AppFooter />
-      </div>
-    </>
+      </body>
+    </Html>
   );
 }

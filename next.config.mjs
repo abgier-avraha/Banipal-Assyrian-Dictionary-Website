@@ -18,5 +18,16 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  webpack: (config, options) => {
+    config.module.rules.push({
+        test: /\.csv$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      })
+
+    return config
+  }
 };
 export default config;
