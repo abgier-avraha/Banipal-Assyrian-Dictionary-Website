@@ -14,7 +14,7 @@ const entrySchema = z.object({
   grammar: z.string().optional(),
 });
 
-type EntrySchemaType = z.infer<typeof entrySchema>;
+export type EntrySchemaType = z.infer<typeof entrySchema>;
 
 export class Dictionary implements IDictionary {
   private fuse = new Fuse<EntrySchemaType>([]);
@@ -30,6 +30,7 @@ export class Dictionary implements IDictionary {
     this.fuse = new Fuse(parsed, {
       includeScore: true,
       keys: ["english", "syriac", "grammar"],
+      threshold: 0.1,
     });
 
     this.isLoaded = true;
