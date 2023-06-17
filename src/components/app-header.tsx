@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "./container";
 
 export function AppHeader() {
@@ -7,19 +8,20 @@ export function AppHeader() {
         <Container>
           <div className="relative flex justify-between gap-6 py-2 md:gap-0 md:py-4">
             <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
-              <a
-                href="#home"
+              <Link
+                href="/"
                 aria-label="logo"
                 className="flex items-center space-x-2"
               >
+                {/* TODO: replace with a neat icon? */}
                 <div aria-hidden="true" className="flex space-x-1">
                   <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-white"></div>
                   <div className="bg-primary h-6 w-2"></div>
                 </div>
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Astrolus
+                  Banipal
                 </span>
-              </a>
+              </Link>
             </div>
             {/* TODO: a link? */}
             {/* <div>

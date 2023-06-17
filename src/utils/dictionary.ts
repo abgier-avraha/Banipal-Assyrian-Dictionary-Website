@@ -6,6 +6,7 @@ interface IDictionary {
   load: (csv: string) => void;
   // Search and english word and return an array of syriac words
   fuzzySearch: (query: string) => EntrySchemaType[];
+  getWord: (word: { english: string }) => EntrySchemaType | undefined;
 }
 
 const entrySchema = z.object({
@@ -17,6 +18,7 @@ const entrySchema = z.object({
 export type EntrySchemaType = z.infer<typeof entrySchema>;
 
 export class Dictionary implements IDictionary {
+  private englishMap: Map<string, EntrySchemaType> = new Map();
   private fuse = new Fuse<EntrySchemaType>([]);
   private isLoaded = false;
 
@@ -25,6 +27,11 @@ export class Dictionary implements IDictionary {
     const parser = new CsvParser();
 
     const parsed = parser.parse(csv, entrySchema);
+
+    // Setup map for exact lookup
+    parsed.forEach((e) => {
+      this.englishMap.set(e.english, e);
+    });
 
     // Load dictionary entries into Fuse engine
     this.fuse = new Fuse(parsed, {
@@ -47,5 +54,13 @@ export class Dictionary implements IDictionary {
     });
 
     return res.map((i) => i.item);
+  }
+
+  getWord(word: { english: string }): EntrySchemaType | undefined {
+    if (!this.isLoaded) {
+      throw new Error("Dictionary has not yet been loaded.");
+    }
+
+    return this.englishMap.get(word.english);
   }
 }

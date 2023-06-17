@@ -18,6 +18,7 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  swcMinify: true,
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(csv)$/,

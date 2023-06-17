@@ -14,6 +14,13 @@ export const dictionaryRouter = createTRPCRouter({
         results: dictionary.fuzzySearch(input.query),
       };
     }),
+  get: publicProcedure
+    .input(z.object({ english: z.string() }))
+    .query(({ input }) => {
+      return {
+        results: dictionary.getWord({ english: input.english }),
+      };
+    }),
 });
 
 function initDictionary() {
