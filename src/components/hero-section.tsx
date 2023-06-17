@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { fonts } from "~/fonts/fonts";
 import { api } from "~/utils/api";
 import { Container } from "./container";
 
@@ -39,6 +40,7 @@ export function HeroSection() {
                   Look Up
                 </button>
               </div>
+              {/* TODO: move to won component */}
               {/* TODO: item linking and get params */}
               {res.data?.results && res.data.results.length > 0 && (
                 <div className="z-10 w-full border divide-y  bg-white rounded-lg">
@@ -49,7 +51,12 @@ export function HeroSection() {
                       href="#"
                     >
                       <div>{r.english}</div>
-                      <div>{r.syriac}</div>
+                      <div
+                        style={{ fontSize: 24 }}
+                        className={fonts.estrangeloEdessa.className}
+                      >
+                        {r.syriac}
+                      </div>
                       <div>{r.grammar}</div>
                     </a>
                   ))}
