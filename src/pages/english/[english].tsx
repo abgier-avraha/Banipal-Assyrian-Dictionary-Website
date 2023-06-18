@@ -21,6 +21,7 @@ export default function Page() {
   );
 }
 
+// TODO: add definition from a free dict api?
 const Word = (props: { entry?: EntrySchemaType }) => {
   if (props.entry === undefined) {
     return (
