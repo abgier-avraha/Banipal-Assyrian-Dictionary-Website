@@ -4,16 +4,21 @@ import { fonts } from "~/fonts/fonts";
 import { api } from "~/utils/api";
 import { EntrySchemaType } from "~/utils/dictionary";
 
+interface IPageProps {
+  english: string;
+}
+
 export default function Page() {
   const router = useRouter();
+  const props: IPageProps = router.query;
   const res = api.dictionary.get.useQuery({
-    english: router.query.english as string,
+    english: props.english,
   });
 
   return (
     <>
       <Head>
-        <title>Banpial</title>
+        <title>{props.english}</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
       <Word entry={res.data?.results} />

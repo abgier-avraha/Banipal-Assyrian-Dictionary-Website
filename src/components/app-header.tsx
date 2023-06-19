@@ -1,28 +1,24 @@
 import Link from "next/link";
+import head from "../images/head.png";
 import { Container } from "./container";
 
 export function AppHeader() {
   return (
     <header>
-      <nav className=" z-10 w-full">
+      <nav className="w-full">
         <Container>
-          <div className="relative flex justify-between gap-6 py-2 md:gap-0 md:py-4">
-            <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
-              <Link
-                href="/"
-                aria-label="logo"
-                className="flex items-center space-x-2"
-              >
-                {/* TODO: replace with a neat icon? */}
-                <div aria-hidden="true" className="flex space-x-1">
-                  <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-white"></div>
-                  <div className="bg-primary h-6 w-2"></div>
-                </div>
-                <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  Banipal
-                </span>
-              </Link>
-            </div>
+          <div className="flex justify-between gap-6 py-2 md:gap-0 md:py-4">
+            <Link
+              href="/"
+              aria-label="logo"
+              className="flex items-center gap-4"
+            >
+              {/* TODO: replace with a neat icon? */}
+              <img src={head.src} style={{ height: "40px" }} />
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                BANIPAL
+              </span>
+            </Link>
             {/* TODO: a link? */}
             {/* <div>
               <a
