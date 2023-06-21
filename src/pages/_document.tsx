@@ -15,22 +15,15 @@ export default function Document() {
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
       <body
-        className="bg-white dark:bg-gray-900"
+        className="bg-gray-100 dark:bg-gray-900"
         style={{ minHeight: "100vh" }}
       >
         <AppHeader />
         <div className="mb-40 space-y-40">
           <div className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
-            >
-              <div className="from-primary h-56 bg-gradient-to-br to-purple-400 blur-[106px] dark:from-blue-700"></div>
-              <div className="h-32 bg-gradient-to-r from-cyan-400 to-sky-300 blur-[106px] dark:to-indigo-600"></div>
-            </div>
             <Container>
               <div className="relative ml-auto pt-20">
-                <div className="mx-auto text-center lg:w-2/3">
+                <div className="mx-auto  lg:w-2/3">
                   <Main />
                 </div>
               </div>

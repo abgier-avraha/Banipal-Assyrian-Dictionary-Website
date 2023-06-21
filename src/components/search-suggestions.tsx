@@ -23,7 +23,6 @@ export function SearchSuggestions(props: { query: string }) {
             >
               {r.syriac}
             </div>
-            <div>{r.grammar}</div>
           </Link>
         ))}
       </div>

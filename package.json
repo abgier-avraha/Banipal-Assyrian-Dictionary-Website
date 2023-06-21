@@ -21,6 +21,7 @@
     "fuse.js": "^6.6.2",
     "next": "^13.4.2",
     "react": "18.2.0",
+    "react-async-hook": "^4.0.0",
     "react-dom": "18.2.0",
     "superjson": "1.12.2",
     "zod": "^3.21.4"
