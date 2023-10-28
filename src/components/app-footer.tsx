@@ -8,7 +8,7 @@ export function AppFooter() {
           © 2023 Abgier Avraha
         </div>
         <div className="w-full space-x-12 text-gray-600 dark:text-gray-300">
-          Meanings are delivered from{" "}
+          Definitions are acquired from{" "}
           <a className="hover:underline" href="https://dictionaryapi.dev/">
             https://dictionaryapi.dev/
           </a>

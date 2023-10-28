@@ -10,9 +10,10 @@ interface IDictionary {
 }
 
 const entrySchema = z.object({
-  english: z.string(),
-  syriac: z.string(),
-  grammar: z.string().optional(),
+  English: z.string(),
+  Överge: z.string().optional(),
+  Syriac: z.string(),
+  Arabic: z.string(),
 });
 
 export type EntrySchemaType = z.infer<typeof entrySchema>;
@@ -30,13 +31,13 @@ export class Dictionary implements IDictionary {
 
     // Setup map for exact lookup
     parsed.forEach((e) => {
-      this.englishMap.set(e.english, e);
+      this.englishMap.set(e.English, e);
     });
 
     // Load dictionary entries into Fuse engine
     this.fuse = new Fuse(parsed, {
       includeScore: true,
-      keys: ["english", "syriac", "grammar"],
+      keys: ["English", "Överge", "Syriac", "Arabic"],
       threshold: 0.1,
     });
 

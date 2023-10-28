@@ -1,6 +1,7 @@
 import Link from "next/link";
 import head from "../images/head.png";
 import { Container } from "./container";
+import Image from "next/image";
 
 export function AppHeader() {
   return (
@@ -14,7 +15,7 @@ export function AppHeader() {
               className="flex items-center gap-4"
             >
               {/* TODO: replace with a neat icon? */}
-              <img src={head.src} style={{ height: "40px" }} />
+              <Image alt="banipal-logo" src={head.src} style={{ height: "40px" }} />
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 BANIPAL
               </span>
