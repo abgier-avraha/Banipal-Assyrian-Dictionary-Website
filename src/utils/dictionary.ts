@@ -23,7 +23,7 @@ export class Dictionary implements IDictionary {
   private fuse = new Fuse<EntrySchemaType>([]);
   private isLoaded = false;
 
-  load(csv: string): void {
+  load(csv: string) {
     // Load csv
     const parser = new CsvParser();
 
@@ -42,7 +42,7 @@ export class Dictionary implements IDictionary {
     });
 
     this.isLoaded = true;
-    return;
+    return this;
   }
 
   fuzzySearch(query: string): EntrySchemaType[] {

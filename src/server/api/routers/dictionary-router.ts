@@ -1,6 +1,6 @@
 import * as fs from "fs";
+import path from "path";
 import { z } from "zod";
-import DictionaryCsv from "~/dictionary.csv";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { Dictionary } from "~/utils/dictionary";
 
@@ -25,6 +25,9 @@ export const dictionaryRouter = createTRPCRouter({
 
 function initDictionary() {
   const dictionary = new Dictionary();
-  dictionary.load(fs.readFileSync(DictionaryCsv).toString());
+
+  const dictionaryPath = path.join(process.cwd(), "src", "dictionary.csv");
+  dictionary.load(fs.readFileSync(dictionaryPath).toString());
+
   return dictionary;
 }
