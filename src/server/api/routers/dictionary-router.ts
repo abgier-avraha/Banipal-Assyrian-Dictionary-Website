@@ -24,10 +24,11 @@ export const dictionaryRouter = createTRPCRouter({
 });
 
 function initDictionary() {
-  const dictionary = new Dictionary();
-
   const dictionaryPath = path.join(process.cwd(), "src", "dictionary.csv");
-  dictionary.load(fs.readFileSync(dictionaryPath).toString());
+
+  const dictionary = new Dictionary().load(
+    fs.readFileSync(dictionaryPath).toString()
+  );
 
   return dictionary;
 }
