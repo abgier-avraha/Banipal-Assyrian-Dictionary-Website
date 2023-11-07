@@ -16,7 +16,7 @@ export function AppHeader() {
             >
               {/* TODO: replace with a neat icon? */}
               <Image alt="banipal-logo" src={head.src} height={40} width={40} />
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">
+              <span className="text-2xl font-bold text-gray-700 dark:text-white">
                 BANIPAL
               </span>
             </Link>
