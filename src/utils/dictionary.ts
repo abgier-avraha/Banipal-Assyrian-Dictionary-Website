@@ -1,4 +1,3 @@
-import Fuse from "fuse.js";
 import { z } from "zod";
 import { CsvParser } from "~/utils/csv-parser";
 
@@ -20,25 +19,19 @@ export type EntrySchemaType = z.infer<typeof entrySchema>;
 
 export class Dictionary implements IDictionary {
   private englishMap: Map<string, EntrySchemaType> = new Map();
-  private fuse = new Fuse<EntrySchemaType>([]);
+  private dictionary: EntrySchemaType[] = [];
   private isLoaded = false;
 
   load(csv: string) {
     // Load csv
     const parser = new CsvParser();
 
-    const parsed = parser.parse(csv, entrySchema);
+    // Load dictionary
+    this.dictionary = parser.parse(csv, entrySchema);
 
     // Setup map for exact lookup
-    parsed.forEach((e) => {
+    this.dictionary.forEach((e) => {
       this.englishMap.set(e.English, e);
-    });
-
-    // Load dictionary entries into Fuse engine
-    this.fuse = new Fuse(parsed, {
-      includeScore: true,
-      keys: ["English", "Överge", "Syriac", "Arabic"],
-      threshold: 0.1,
     });
 
     this.isLoaded = true;
@@ -50,11 +43,29 @@ export class Dictionary implements IDictionary {
       throw new Error("Dictionary has not yet been loaded.");
     }
 
-    const res = this.fuse.search(query, {
-      limit: 5,
+    if (query === "") {
+      return [];
+    }
+
+    const lowerCaseQuery = query.toLowerCase();
+
+    const startsWith = this.dictionary.filter((w) => {
+      return (
+        w.Arabic.toLowerCase().startsWith(lowerCaseQuery) ||
+        w.English.toLowerCase().startsWith(lowerCaseQuery) ||
+        w.Syriac.toLowerCase().startsWith(lowerCaseQuery)
+      );
     });
 
-    return res.map((i) => i.item);
+    const includes = this.dictionary.filter((w) => {
+      return (
+        w.Arabic.toLowerCase().includes(lowerCaseQuery) ||
+        w.English.toLowerCase().includes(lowerCaseQuery) ||
+        w.Syriac.toLowerCase().includes(lowerCaseQuery)
+      );
+    });
+
+    return onlyUnique([...startsWith, ...includes]).slice(0, 5);
   }
 
   getWord(word: { english: string }): EntrySchemaType | undefined {
@@ -64,4 +75,13 @@ export class Dictionary implements IDictionary {
 
     return this.englishMap.get(word.english);
   }
+}
+
+function onlyUnique(array: EntrySchemaType[]) {
+  const map = new Map<string, EntrySchemaType>();
+  array.forEach((a) => {
+    map.set(a.English, a);
+  });
+
+  return Array.from(map.values());
 }

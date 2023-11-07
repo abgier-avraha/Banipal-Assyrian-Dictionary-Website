@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SearchSuggestions } from "./search-suggestions";
-
-// TODO: use and set query parameters for searching MAYBE...
 
 export function HeroSection() {
   const [query, setQuery] = useState("");
+  const inputDirection = useMemo(() => {
+    const code = query.charCodeAt(0);
+
+    // Detect arabic or syriac in search input
+    if (code >= 1536 && code <= 1871) {
+      return "rtl";
+    }
+
+    return "ltr";
+  }, [query]);
 
   return (
     <div className="flex flex-col gap-16">
@@ -20,10 +28,11 @@ export function HeroSection() {
 
       <div className="flex flex-col gap-4">
         <input
-          className="shadow appearance-none border rounded w-full py-3 px-5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-3 px-5 text-xl leading-tight focus:outline-none focus:shadow-outline"
           type="text"
-          placeholder="Enter a word in English...."
+          placeholder="Enter a word in English, Assyrian or Arabic...."
           value={query}
+          dir={inputDirection}
           onChange={(e) => setQuery(e.target.value)}
         />
 

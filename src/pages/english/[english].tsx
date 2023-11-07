@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useAsync } from "react-async-hook";
-import { fonts } from "~/fonts/fonts";
 import { useQueryParams } from "~/hooks/use-query-params";
 import { api } from "~/utils/api";
 import { definitions } from "~/utils/definitions";
@@ -44,7 +43,7 @@ const Word = (props: { entry: EntrySchemaType }) => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4 justify-between	">
+      <div className="flex flex-col gap-8 justify-between	">
         <p className="text-5xl text-gray-900 dark:text-white">
           <span className="font-bold">{props.entry.English}</span>
           <span className="text-sm font-bold italic ml-4">eng</span>
@@ -60,13 +59,13 @@ const Word = (props: { entry: EntrySchemaType }) => {
         )}
         <p className="text-right text-5xl text-gray-900 dark:text-white">
           <span className="text-sm font-bold italic mr-4">syr</span>
-          <span className={[fonts.estrangeloEdessa.className, "weight-700"].join(" ")}>
+          <span className={["weight-bold"].join(" ")}>
             {props.entry.Syriac}
           </span>
         </p>
         <p className="text-right text-4xl text-gray-900 dark:text-white">
           <span className="text-sm font-bold italic mr-4">ara</span>
-          <span className={[fonts.notoSans.className, "weight-700"].join(" ")}>
+          <span className={["weight-bold"].join(" ")}>
             {props.entry.Arabic}
           </span>
         </p>

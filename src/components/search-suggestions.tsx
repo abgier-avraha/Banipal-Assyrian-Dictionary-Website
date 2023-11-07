@@ -1,6 +1,5 @@
 import { useDebounce } from "@uidotdev/usehooks";
 import Link from "next/link";
-import { fonts } from "~/fonts/fonts";
 import { api } from "~/utils/api";
 
 export function SearchSuggestions(props: { query: string }) {
@@ -28,7 +27,7 @@ export function SearchSuggestions(props: { query: string }) {
               {r.Överge && (
                 // TODO: unhide later
                 <p className="hidden font-medium">
-                  <span className="">
+                  <span>
                     {r.Överge}
                   </span>
                   <span className="text-sm ml-2 italic">swe</span>
@@ -38,14 +37,14 @@ export function SearchSuggestions(props: { query: string }) {
             <div className="flex flex-col gap-1">
               <p className="text-right">
                 <span className="text-sm mr-2 italic">syr</span>
-                <span className={[fonts.estrangeloEdessa.className, "text-2xl"].join(" ")}>
+                <span className="font-medium">
                   {r.Syriac}
                 </span>
               </p>
 
               <p className="text-right">
                 <span className="text-sm mr-2 italic">ara</span>
-                <span className={[fonts.notoSans.className, "text-xl"].join(" ")}>
+                <span className="font-medium">
                   {r.Arabic}
                 </span>
               </p>
