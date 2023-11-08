@@ -23,7 +23,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         }
         
         html {
-          font-family: syriac, arabic, "Segoe UI";
+          font-family: syriac, arabic, "Segoe UI", "Arial";
         }
       `}
       </style>
