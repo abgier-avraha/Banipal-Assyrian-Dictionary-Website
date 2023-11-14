@@ -10,7 +10,7 @@ export default function Document() {
         <meta charSet="UTF-8" />
         <meta
           name="description"
-          content="Template built with tailwindcss using Tailus blocks v2"
+          content="Banipal English and Arabic to Assyrian Dictionary"
         />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
