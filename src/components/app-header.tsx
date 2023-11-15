@@ -20,6 +20,15 @@ export function AppHeader() {
                 BANIPAL
               </span>
             </Link>
+            <Link
+              href="/"
+              aria-label="logo"
+              className="flex items-center gap-4"
+            >
+              <span className="text-2xl font-bold text-gray-700 dark:text-white">
+                ܒܢܝܦܠ
+              </span>
+            </Link>
             {/* TODO: a link? */}
             {/* <div>
               <a

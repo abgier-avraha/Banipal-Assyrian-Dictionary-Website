@@ -22,7 +22,7 @@ export function HeroSection() {
           BANIPAL
         </h1>
         <h2 className="text-3xl text-gray-900 dark:text-white md:text-4xl xl:text-5xl">
-          Assyrian Dictionary
+          English and Arabic to Assyrian Dictionary
         </h2>
       </div>
 
@@ -30,7 +30,7 @@ export function HeroSection() {
         <input
           className="shadow appearance-none border rounded w-full py-3 px-5 text-xl leading-tight focus:outline-none focus:shadow-outline"
           type="text"
-          placeholder="Enter a word in English, Assyrian or Arabic...."
+          placeholder="Search in English, Assyrian or Arabic..."
           value={query}
           dir={inputDirection}
           onChange={(e) => setQuery(e.target.value)}

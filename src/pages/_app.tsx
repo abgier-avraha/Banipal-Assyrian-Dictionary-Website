@@ -25,6 +25,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         html {
           font-family: syriac, arabic, "Segoe UI", "Arial";
         }
+        input::placeholder {
+          font-size: 0.8em;
+        }
       `}
       </style>
       <Component {...pageProps} />

@@ -6,7 +6,7 @@ const Index: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Banipal Dictionary</title>
+        <title>Banipal Simple Assryian Dictionary</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
       <HeroSection />

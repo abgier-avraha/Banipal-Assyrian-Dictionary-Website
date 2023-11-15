@@ -16,6 +16,10 @@ export default function Page() {
     english: params.english,
   });
 
+  if (assyrianTranslationFetcher.isLoading) {
+    return null;
+  }
+
   return (
     <>
       <Head>
