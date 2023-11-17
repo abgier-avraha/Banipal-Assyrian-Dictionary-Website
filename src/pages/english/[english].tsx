@@ -12,12 +12,8 @@ interface IPageProps {
 export default function Page() {
   const params = useQueryParams<IPageProps>();
 
-  const assyrianTranslationFetcher = api.dictionary.get.useQuery({
-    english: params.english,
-  });
-
-  if (assyrianTranslationFetcher.isLoading) {
-    return null;
+  if (params.english === undefined) {
+    return null
   }
 
   return (
@@ -26,20 +22,33 @@ export default function Page() {
         <title>{params.english}</title>
         <meta name="viewport" content="width=device-width" />
       </Head>
-      <>
-        {assyrianTranslationFetcher.data?.results === undefined ? (
-          <p className="text-5xl font-bold text-gray-900 dark:text-white">
-            Word not found...
-          </p>
-        ) : (
-          <Word entry={assyrianTranslationFetcher.data.results} />
-        )}
-      </>
+      <EntryFetcher english={params.english} />
     </>
   );
 }
 
-const Word = (props: { entry: EntrySchemaType }) => {
+const EntryFetcher = (props: { english: string }) => {
+  const assyrianTranslationFetcher = api.dictionary.get.useQuery({
+    english: props.english,
+  });
+
+  if (assyrianTranslationFetcher.isLoading) {
+    return null;
+  }
+
+  if (assyrianTranslationFetcher.data?.results === undefined) {
+    return (
+      <p className="text-5xl font-bold text-gray-900 dark:text-white">
+        Word not found...
+      </p>
+    )
+  }
+
+  return <Entry entry={assyrianTranslationFetcher.data.results} />
+
+}
+
+const Entry = (props: { entry: EntrySchemaType }) => {
   const definitionFetcher = useAsync(
     async (req: string) => definitions.get(req),
     [props.entry?.English]
