@@ -15,7 +15,7 @@ export function HeroSection() {
   }, [query]);
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         <h1 className="text-5xl font-bold text-gray-900 dark:text-white md:text-6xl xl:text-7xl">
           {/* TODO: replace with a serif font */}
@@ -24,6 +24,9 @@ export function HeroSection() {
         <h2 className="text-3xl text-gray-900 dark:text-white md:text-4xl xl:text-5xl">
           English and Arabic to Assyrian Dictionary
         </h2>
+        <h3 className="text-xl text-gray-900 dark:text-white md:text-2xl xl:text-3xl">
+          By Awia Khnanya
+        </h3>
       </div>
 
       <div className="flex flex-col gap-4">
