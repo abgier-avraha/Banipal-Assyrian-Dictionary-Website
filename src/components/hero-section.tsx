@@ -25,7 +25,7 @@ export function HeroSection() {
           English and Arabic to Assyrian Dictionary
         </h2>
         <h3 className="text-xl text-gray-900 dark:text-white md:text-2xl xl:text-3xl">
-          By Awia Khnanya
+          By Awia Oraha
         </h3>
       </div>
 
