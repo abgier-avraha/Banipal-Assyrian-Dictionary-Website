@@ -1,4 +1,5 @@
 import { type AppType } from "next/app";
+import Script from "next/script";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
@@ -30,6 +31,18 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         }
       `}
       </style>
+
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-1E0SCBB8X1" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-1E0SCBB8X1');
+        `}
+      </Script>
+
       <Component {...pageProps} />
     </>
   )
