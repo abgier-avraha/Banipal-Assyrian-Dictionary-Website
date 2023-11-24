@@ -3,6 +3,13 @@ import Script from "next/script";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
+const structuredData = `{
+  "@context" : "https://schema.org",
+  "@type" : "WebSite",
+  "name" : "Banipal Assyrian Dictionary",
+  "url" : "https://banipal.app/"
+}`
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
@@ -42,6 +49,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           gtag('config', 'G-1E0SCBB8X1');
         `}
       </Script>
+
+      <Script
+        id="ld-tag"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: structuredData
+        }}
+        key="product-jsonld"
+      />
 
       <Component {...pageProps} />
     </>
