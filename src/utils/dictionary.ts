@@ -91,36 +91,38 @@ export class Dictionary implements IDictionary {
   }
 
   private removeSyriacDiacritics(word: string): string {
+    const syriacAlphabet = "ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ";
+
+    // Check if query is in Syriac before stripping diacritics
+    if (!syriacAlphabet.split("").find((letter) => word.includes(letter))) {
+      return word;
+    }
+
     return word
       .split("")
       .map((letter) => {
-        const code = letter.charCodeAt(0);
-        if (code >= 1792 && code <= 1801) {
-          return "";
+        if (syriacAlphabet.includes(letter)) {
+          return letter;
         }
-
-        if (code >= 1840 && code <= 1866) {
-          return "";
-        }
-
-        return letter;
+        return "";
       })
       .join("");
   }
 
   private removeArabicDiacritics(word: string): string {
+    const arabicAlphabet = "ابجدهوزحطيكلمنسعفصقرشتثخذضظغ";
+
+    // Check if query is in Arabic before stripping diacritics
+    if (!arabicAlphabet.split("").find((letter) => word.includes(letter))) {
+      return word;
+    }
     return word
       .split("")
       .map((letter) => {
-        const code = letter.charCodeAt(0);
-        if (code >= 1611 && code <= 1631) {
-          return "";
+        if (arabicAlphabet.includes(letter)) {
+          return letter;
         }
-
-        if (code >= 1560 && code <= 1562) {
-          return "";
-        }
-        return letter;
+        return "";
       })
       .join("");
   }
