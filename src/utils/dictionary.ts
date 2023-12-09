@@ -110,7 +110,7 @@ export class Dictionary implements IDictionary {
   }
 
   private removeArabicDiacritics(word: string): string {
-    const arabicAlphabet = "ابجدهوزحطيكلمنسعفصقرشتثخذضظغ";
+    const arabicAlphabet = "أإآابجدهوزحطيكلمنسعفصقرشتثخذضظغ";
 
     // Check if query is in Arabic before stripping diacritics
     if (!arabicAlphabet.split("").find((letter) => word.includes(letter))) {
