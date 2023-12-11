@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CsvParser } from "~/utils/csv-parser";
+import { Unicode } from "./unicode";
 
 interface IDictionary {
   load: (csv: string) => void;
@@ -36,8 +37,8 @@ export class Dictionary implements IDictionary {
     // Load dictionary
     this.dictionary = parser.parse(csv, entrySchema).map((e) => ({
       ...e,
-      SyriacWithoutDiacritics: this.removeSyriacDiacritics(e.Syriac),
-      ArabicWithoutDiacritics: this.removeArabicDiacritics(e.Arabic),
+      SyriacWithoutDiacritics: this.simplifySyriacQuery(e.Syriac),
+      ArabicWithoutDiacritics: this.simplifyArabicQuery(e.Arabic),
       EnglishLowerCase: e.English.toLowerCase(),
     }));
 
@@ -59,9 +60,7 @@ export class Dictionary implements IDictionary {
       return [];
     }
 
-    const simplifiedQuery = this.removeArabicDiacritics(
-      this.removeSyriacDiacritics(query.toLowerCase())
-    );
+    const simplifiedQuery = this.simplifyQuery(query);
 
     const startsWith = this.dictionary.filter((w) => {
       return (
@@ -90,13 +89,20 @@ export class Dictionary implements IDictionary {
     return this.englishMap.get(word.english);
   }
 
-  private removeSyriacDiacritics(word: string): string {
-    const syriacAlphabet = "ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ";
-
-    // Check if query is in Syriac before stripping diacritics
-    if (!syriacAlphabet.split("").find((letter) => word.includes(letter))) {
-      return word;
+  private simplifyQuery(query: string) {
+    switch (Unicode.detectAlphabet(query)) {
+      case "syr":
+        return this.simplifySyriacQuery(query);
+      case "ara":
+        return this.simplifyArabicQuery(query);
+      default:
+        return query.toLowerCase();
     }
+  }
+
+  // Removes diacritic characters
+  private simplifySyriacQuery(word: string): string {
+    const syriacAlphabet = "ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ";
 
     return word
       .split("")
@@ -109,16 +115,19 @@ export class Dictionary implements IDictionary {
       .join("");
   }
 
-  private removeArabicDiacritics(word: string): string {
-    const arabicAlphabet = "أإآابجدهوزحطيكلمنسعفصقرشتثخذضظغ";
+  // Removes diacritic characters
+  // Also replaces unicode characters with embedded diacritics
+  // such as hamzas / maddas with just the alphabetical character
+  private simplifyArabicQuery(word: string): string {
+    const arabicAlphabet = "ابجدهوزحطيكلمنسعفصقرشتثخذضظغ";
+    const alifAlternatives = "أإآ";
 
-    // Check if query is in Arabic before stripping diacritics
-    if (!arabicAlphabet.split("").find((letter) => word.includes(letter))) {
-      return word;
-    }
     return word
       .split("")
       .map((letter) => {
+        if (alifAlternatives.includes(letter)) {
+          return "ا";
+        }
         if (arabicAlphabet.includes(letter)) {
           return letter;
         }

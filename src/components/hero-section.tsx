@@ -1,13 +1,14 @@
 import { useMemo, useState } from "react";
 import { SearchSuggestions } from "./search-suggestions";
+import { Unicode } from "~/utils/unicode";
 
 export function HeroSection() {
   const [query, setQuery] = useState("");
   const inputDirection = useMemo(() => {
-    const code = query.charCodeAt(0);
+    const alphabet = Unicode.detectAlphabet(query);
 
     // Detect arabic or syriac in search input
-    if (code >= 1536 && code <= 1871) {
+    if (alphabet === 'syr' || alphabet === 'ara') {
       return "rtl";
     }
 
