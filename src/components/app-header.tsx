@@ -26,7 +26,7 @@ export function AppHeader() {
               className="flex items-center gap-4"
             >
               <span className="text-2xl font-bold text-gray-700 dark:text-white">
-                ܒܢܝܦܠ • بانيپال
+                ܒܢܝܦܠ
               </span>
             </Link>
             {/* TODO: a link? */}
