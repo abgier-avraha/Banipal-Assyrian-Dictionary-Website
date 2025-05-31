@@ -1,9 +1,30 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  html {
-    @apply bg-gray-100 dark:bg-gray-900;
-  }
+@theme {
+	--font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@font-face {
+	font-family: "syriac";
+	src: url("/fonts/estre.ttf") format("truetype");
+	font-style: normal;
+	unicode-range: U+0700-074F;
+	size-adjust: 160%;
+}
+
+@font-face {
+	font-family: "arabic";
+	src: url("/fonts/noto-sans.ttf") format("truetype");
+	font-style: normal;
+	unicode-range: U+0600-06FF;
+	size-adjust: 130%;
+}
+
+html {
+	/* biome-ignore lint/a11y/useGenericFontNames: <explanation> */
+	font-family: syriac, arabic, "Segoe UI", "Arial";
+}
+input::placeholder {
+	font-size: 0.8em;
 }
